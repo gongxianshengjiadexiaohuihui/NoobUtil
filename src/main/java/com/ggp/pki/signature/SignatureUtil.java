@@ -26,6 +26,7 @@ public class SignatureUtil extends BCProvider {
             signature.initSign(key);
             signature.update(source.getBytes());
             byte[] out = signature.sign();
+
             return new String(Base64.encode(out));
         } catch (Exception e) {
             throw new SignatureException("签名失败", e);
