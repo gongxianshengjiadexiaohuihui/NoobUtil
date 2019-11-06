@@ -45,7 +45,7 @@ public class SignatureUtil extends BCProvider {
         try {
             Signature signature = Signature.getInstance(signatureAlgorithmName);
             signature.initVerify(key);
-            signature.update(source.getBytes("UTF-8"));
+            signature.update(source.getBytes());
             return signature.verify(Base64.decode(sign.getBytes("UTF-8")));
         } catch (Exception e) {
             throw new SignatureException("验签失败", e);
