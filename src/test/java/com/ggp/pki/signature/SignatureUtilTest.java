@@ -26,13 +26,33 @@ public class SignatureUtilTest {
         sm2PrivateKey = sm2KeyPair.getPrivate();
     }
 
+    /**
+     * 签名 sm2WithSm3
+     */
     @Test
-    public void should_be_no_Exception_when_signature_by_SM3WITHSM2() {
+    public void should_be_no_exception_when_signature_by_sm3WithSm2(){
         boolean flag = true;
         try {
             String source = "test";
             String result = SignatureUtil.signature(SignatureAlgorithmEnum.SM3_WITH_SM2.name, sm2PrivateKey, source);
+            System.out.println("私钥："+sm2PrivateKey);
             System.out.println("签名结果：" + result);
+        } catch (SignatureException e) {
+            flag = false;
+        }
+        Assert.assertTrue(flag);
+    }
+
+    /**
+     * 验签 sm2WithSm3
+     */
+    @Test
+    public void should_be_success_when_verify_signature_with_sm3WithSm2(){
+        boolean flag = true;
+        try {
+            String source = "test";
+            String sign = SignatureUtil.signature(SignatureAlgorithmEnum.SM3_WITH_SM2.name, sm2PrivateKey, source);
+            flag = SignatureUtil.verify(SignatureAlgorithmEnum.SM3_WITH_SM2.name,sm2PublicKey,source,sign);
         } catch (SignatureException e) {
             flag = false;
         }
