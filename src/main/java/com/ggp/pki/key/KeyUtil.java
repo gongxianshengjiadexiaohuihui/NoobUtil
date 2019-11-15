@@ -14,7 +14,7 @@ public class KeyUtil extends BCProvider {
 
 
     /**
-     * 生成RSA公私钥
+     * 生成sm2公私钥
      *
      * @return
      */

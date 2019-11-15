@@ -1,10 +1,14 @@
 package com.ggp.pki.signature;
 
+import com.ggp.common.Exception.SignatureException;
 import com.ggp.common.base.BCProvider;
 import com.ggp.common.enums.pki.SignatureAlgorithmEnum;
 import org.bouncycastle.util.encoders.Base64;
 
-import java.security.*;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.Signature;
+
 
 /**
  * @author: ggp
@@ -73,5 +77,51 @@ public class SignatureUtil extends BCProvider {
      */
     public static boolean verifyBySm3WithSm2(PublicKey key, String source, String sign) throws SignatureException {
         return verify(SignatureAlgorithmEnum.SM3_WITH_SM2.name, key, source, sign);
+    }
+
+    /**
+     * 签名 签名算法为SH1WithRSA
+     * @param key    私钥
+     * @param source 签名原文
+     * @return
+     * @throws SignatureException
+     */
+    public static String signatureBySHA1WithRSA(PrivateKey key,String source) throws  SignatureException{
+        return signature(SignatureAlgorithmEnum.SHA1_WITH_RSA.name,key,source);
+    }
+
+    /**
+     * 验签 签名算法为SHA1WithRSA
+     * @param key    公钥
+     * @param source 签名原文
+     * @param sign   签名值
+     * @return
+     * @throws SignatureException
+     */
+    public static boolean verifyBySHA1WithRSA(PublicKey key,String source,String sign) throws SignatureException{
+        return verify(SignatureAlgorithmEnum.SHA1_WITH_RSA.name,key,source,sign);
+    }
+
+    /**
+     * 签名 签名算法为SHA256WithRSA
+     * @param key    私钥
+     * @param source 签名原文
+     * @return
+     * @throws SignatureException
+     */
+    public static String signatureBySHA256WithRSA(PrivateKey key,String source) throws SignatureException{
+        return signature(SignatureAlgorithmEnum.SHA256_WITH_RSA.name,key,source);
+    }
+
+    /**
+     * 验签 签名算法为SHA256WithRSA
+     * @param key    公钥
+     * @param source 签名原文
+     * @param sign   签名值
+     * @return
+     * @throws SignatureException
+     */
+    public static boolean verifyBySHA256WithRSA(PublicKey key,String source,String sign) throws SignatureException{
+        return verify(SignatureAlgorithmEnum.SHA256_WITH_RSA.name,key,source,sign);
     }
 }
