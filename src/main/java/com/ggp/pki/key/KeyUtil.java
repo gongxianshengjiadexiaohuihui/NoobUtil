@@ -1,7 +1,7 @@
 package com.ggp.pki.key;
 
 
-import com.ggp.common.base.BCProvider;
+import com.ggp.common.base.AbstractProvider;
 
 import java.security.*;
 
@@ -10,7 +10,7 @@ import java.security.*;
  * @Date: 2019/11/6 16:06
  * @Description:
  */
-public class KeyUtil extends BCProvider {
+public class KeyUtil extends AbstractProvider {
 
 
     /**

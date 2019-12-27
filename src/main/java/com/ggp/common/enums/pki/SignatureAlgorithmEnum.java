@@ -16,4 +16,18 @@ public enum SignatureAlgorithmEnum {
         this.oid = oid;
         this.name = name;
     }
+
+    /**
+     * 判断是否支持该签名算法
+     * @param name
+     * @return
+     */
+    public static boolean contain(String name){
+        for(SignatureAlgorithmEnum signatureAlgorithmEnum:SignatureAlgorithmEnum.values()){
+            if(signatureAlgorithmEnum.name.equals(name)){
+                return true;
+            }
+        }
+        return false;
+    }
 }

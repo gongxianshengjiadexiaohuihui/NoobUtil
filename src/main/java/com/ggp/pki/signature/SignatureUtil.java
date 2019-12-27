@@ -1,7 +1,7 @@
 package com.ggp.pki.signature;
 
 import com.ggp.common.Exception.SignatureException;
-import com.ggp.common.base.BCProvider;
+import com.ggp.common.base.AbstractProvider;
 import com.ggp.common.enums.pki.SignatureAlgorithmEnum;
 import org.bouncycastle.util.encoders.Base64;
 
@@ -15,7 +15,7 @@ import java.security.Signature;
  * @Date: 2019/11/6 15:27
  * @Description: 签名验签工具类  provider是BC
  */
-public class SignatureUtil extends BCProvider {
+public class SignatureUtil extends AbstractProvider {
     /**
      * 签名
      *
@@ -25,6 +25,9 @@ public class SignatureUtil extends BCProvider {
      * @return Base64字符串
      */
     public static String signature(String signatureAlgorithmName, PrivateKey key, String source) throws SignatureException {
+        if(!SignatureAlgorithmEnum.contain(signatureAlgorithmName)){
+            throw new SignatureException("不支持的签名算法");
+        }
         try {
             Signature signature = Signature.getInstance(signatureAlgorithmName);
             signature.initSign(key);
@@ -46,6 +49,9 @@ public class SignatureUtil extends BCProvider {
      * @return
      */
     public static boolean verify(String signatureAlgorithmName, PublicKey key, String source, String sign) throws SignatureException {
+        if(!SignatureAlgorithmEnum.contain(signatureAlgorithmName)){
+            throw new SignatureException("不支持的签名算法");
+        }
         try {
             Signature signature = Signature.getInstance(signatureAlgorithmName);
             signature.initVerify(key);
