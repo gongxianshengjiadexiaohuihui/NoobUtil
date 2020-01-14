@@ -11,6 +11,7 @@ import java.security.Security;
  */
 public abstract class AbstractProvider {
     static {
+        Constants.provider = Constants.BOUNCYCASTLEPROVIDER;
         if(null == Security.getProvider(BouncyCastleProvider.PROVIDER_NAME)){
             Security.addProvider(new BouncyCastleProvider());
         }
