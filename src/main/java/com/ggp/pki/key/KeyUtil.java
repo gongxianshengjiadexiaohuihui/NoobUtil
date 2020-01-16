@@ -2,8 +2,11 @@ package com.ggp.pki.key;
 
 
 import com.ggp.common.base.AbstractProvider;
+import org.bouncycastle.asn1.nist.NISTNamedCurves;
+import org.bouncycastle.asn1.sec.SECObjectIdentifiers;
 
 import java.security.*;
+import java.security.spec.ECGenParameterSpec;
 
 /**
  * @author: ggp
@@ -22,7 +25,24 @@ public class KeyUtil extends AbstractProvider {
         SecureRandom random = new SecureRandom((String.valueOf(System.nanoTime())).getBytes());
         try {
             KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("EC", "BC");
-            keyPairGenerator.initialize(256, random);
+            keyPairGenerator.initialize(new ECGenParameterSpec("sm2p256v1"), random);
+            KeyPair keyPair = keyPairGenerator.generateKeyPair();
+            return keyPair;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 生成EC-DSA公私钥
+     * @return
+     */
+    public static KeyPair createECDSAKeyPair(){
+        SecureRandom random = new SecureRandom((String.valueOf(System.nanoTime())).getBytes());
+        try {
+            KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("EC", "BC");
+            keyPairGenerator.initialize(new ECGenParameterSpec(NISTNamedCurves.getName(SECObjectIdentifiers.secp256r1)), random);
             KeyPair keyPair = keyPairGenerator.generateKeyPair();
             return keyPair;
         } catch (Exception e) {

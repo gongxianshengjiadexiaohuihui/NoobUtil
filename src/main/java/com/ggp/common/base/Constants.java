@@ -14,4 +14,8 @@ public class Constants {
      * BC provider
      */
     public static final String BOUNCYCASTLEPROVIDER = "BC";
+    /**
+     * 全局根路径
+     */
+    public static final String ROOT_PATH = "/NoobUtil/";
 }
