@@ -25,7 +25,7 @@ public class SignatureUtil extends AbstractProvider {
      * @return Base64字符串
      */
     public static String signature(String signatureAlgorithmName, PrivateKey key, String source) throws SignatureException {
-        if(!SignatureAlgorithmEnum.contain(signatureAlgorithmName)){
+        if (!SignatureAlgorithmEnum.contain(signatureAlgorithmName)) {
             throw new SignatureException("不支持的签名算法");
         }
         try {
@@ -49,7 +49,7 @@ public class SignatureUtil extends AbstractProvider {
      * @return
      */
     public static boolean verify(String signatureAlgorithmName, PublicKey key, String source, String sign) throws SignatureException {
-        if(!SignatureAlgorithmEnum.contain(signatureAlgorithmName)){
+        if (!SignatureAlgorithmEnum.contain(signatureAlgorithmName)) {
             throw new SignatureException("不支持的签名算法");
         }
         try {
@@ -87,47 +87,76 @@ public class SignatureUtil extends AbstractProvider {
 
     /**
      * 签名 签名算法为SH1WithRSA
+     *
      * @param key    私钥
      * @param source 签名原文
      * @return
      * @throws SignatureException
      */
-    public static String signatureBySHA1WithRSA(PrivateKey key,String source) throws  SignatureException{
-        return signature(SignatureAlgorithmEnum.SHA1_WITH_RSA.name,key,source);
+    public static String signatureBySHA1WithRSA(PrivateKey key, String source) throws SignatureException {
+        return signature(SignatureAlgorithmEnum.SHA1_WITH_RSA.name, key, source);
     }
 
     /**
      * 验签 签名算法为SHA1WithRSA
+     *
      * @param key    公钥
      * @param source 签名原文
      * @param sign   签名值
      * @return
      * @throws SignatureException
      */
-    public static boolean verifyBySHA1WithRSA(PublicKey key,String source,String sign) throws SignatureException{
-        return verify(SignatureAlgorithmEnum.SHA1_WITH_RSA.name,key,source,sign);
+    public static boolean verifyBySHA1WithRSA(PublicKey key, String source, String sign) throws SignatureException {
+        return verify(SignatureAlgorithmEnum.SHA1_WITH_RSA.name, key, source, sign);
     }
 
     /**
      * 签名 签名算法为SHA256WithRSA
+     *
      * @param key    私钥
      * @param source 签名原文
      * @return
      * @throws SignatureException
      */
-    public static String signatureBySHA256WithRSA(PrivateKey key,String source) throws SignatureException{
-        return signature(SignatureAlgorithmEnum.SHA256_WITH_RSA.name,key,source);
+    public static String signatureBySHA256WithRSA(PrivateKey key, String source) throws SignatureException {
+        return signature(SignatureAlgorithmEnum.SHA256_WITH_RSA.name, key, source);
     }
 
     /**
      * 验签 签名算法为SHA256WithRSA
+     *
      * @param key    公钥
      * @param source 签名原文
      * @param sign   签名值
      * @return
      * @throws SignatureException
      */
-    public static boolean verifyBySHA256WithRSA(PublicKey key,String source,String sign) throws SignatureException{
-        return verify(SignatureAlgorithmEnum.SHA256_WITH_RSA.name,key,source,sign);
+    public static boolean verifyBySHA256WithRSA(PublicKey key, String source, String sign) throws SignatureException {
+        return verify(SignatureAlgorithmEnum.SHA256_WITH_RSA.name, key, source, sign);
+    }
+
+    /**
+     * 签名 签名算法为SHA256WithECDSA
+     *
+     * @param key    私钥钥
+     * @param source 签名原文
+     * @return
+     * @throws SignatureException
+     */
+    public static String sigatureBySHA256WithECDSA(PrivateKey key, String source) throws SignatureException {
+        return signature(SignatureAlgorithmEnum.SHA256_WITH_ECDSA.name, key, source);
+    }
+
+    /**
+     * 验签 签名算法为SHA256WithECDSA
+     *
+     * @param key    公钥
+     * @param source 签名原文
+     * @param sign   签名值
+     * @return
+     * @throws SignatureException
+     */
+    public static boolean verifyBySHA256WithECDSA(PublicKey key, String source, String sign) throws SignatureException {
+        return verify(SignatureAlgorithmEnum.SHA256_WITH_ECDSA.name, key, source, sign);
     }
 }
