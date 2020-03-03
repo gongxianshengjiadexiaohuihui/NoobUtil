@@ -27,4 +27,18 @@ public class P10UtilTest {
         PKCS10CertificationRequest p10 = P10Util.createP10(subject, SignatureAlgorithmEnum.SHA256_WITH_ECDSA.name, keyPair.getPublic(), keyPair.getPrivate());
         PemUtil.writeObjectToFile(p10, Constants.ROOT_PATH + "test.p10");
     }
+
+    @Test
+    public void getPublicFromP10() throws Exception{
+        String p10 ="-----BEGIN CERTIFICATE REQUEST-----\n" +
+                "MIHvMIGXAgEAMDUxCzAJBgNVBAYTAkNOMQwwCgYDVQQKDANTTTIxGDAWBgNVBAMM\n" +
+                "D+WuoeiuoeeuoeeQhuWRmDBZMBMGByqGSM49AgEGCCqBHM9VAYItA0IABNautK+a\n" +
+                "zO0AqFyeCgpFxh3JckUvyUF8WT+n5QP+U+CfJBHwo1hrDsad57OYxN82vJC9IKFA\n" +
+                "bGJaKEuLE+wamOmgADAKBggqgRzPVQGDdQNHADBEAiAJgoD7EwnK8F9HPUpop+k2\n" +
+                "NBMb6IC/WsIC7i9zJwKkmgIgd69TFm2KoSfWdkh7L2t0dYUzLxbhF2nkE4RLWZJ3\n" +
+                "VRM=\n" +
+                "-----END CERTIFICATE REQUEST-----";
+        System.out.println(P10Util.getPublicKeyFromP10(p10));
+
+    }
 }

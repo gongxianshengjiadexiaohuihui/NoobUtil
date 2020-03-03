@@ -54,6 +54,7 @@ public class CrlUtil extends AbstractProvider {
     public static List<String> getRevokeCertSnList(X509CRL x509CRL){
         List<String> snList = new ArrayList<String>();
         Set revokedCertificates = x509CRL.getRevokedCertificates();
+
         for(Object o: revokedCertificates){
             X509CRLEntry x509CRLEntry = (X509CRLEntry)o;
             snList.add(x509CRLEntry.getSerialNumber().toString(16));

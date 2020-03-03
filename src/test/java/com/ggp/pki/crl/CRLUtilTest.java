@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.security.cert.X509CRL;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -236,5 +237,32 @@ public class CRLUtilTest {
         X509CRL crl = CrlUtil.getX509CRLByBase64(base64Str);
         List list  = CrlUtil.getRevokeCertSnList(crl);
         Assert.assertTrue(list.contains("10000017"));
+    }
+    @Test
+    public void should_test() throws Exception {
+        String srt= "-----BEGIN X509 CRL-----\n" +
+                "MIIC2zCCAoECAQEwCgYIKoEcz1UBg3UwKjELMAkGA1UEBhMCQ04xDDAKBgNVBAoM\n" +
+                "A1NNMjENMAsGA1UEAwwEcm9vdBcNMjAwMjI3MTU1MjMwWhcNMjAwMjI3MTU1NDMw\n" +
+                "WjCCAbwwIwIEEAADGxcNMjAwMjE3MDcwNzAwWjAMMAoGA1UdFQQDCgEJMCMCBBAA\n" +
+                "AxwXDTIwMDIxNzA3MDcwMFowDDAKBgNVHRUEAwoBCTAjAgQQAAMfFw0yMDAyMTcw\n" +
+                "NzE3MDBaMAwwCgYDVR0VBAMKAQkwIwIEEAADIBcNMjAwMjE3MDcxNzAwWjAMMAoG\n" +
+                "A1UdFQQDCgEJMCMCBBAAAyEXDTIwMDIxNzA3MzI1OVowDDAKBgNVHRUEAwoBATAj\n" +
+                "AgQQAAMiFw0yMDAyMTcwNzMyNTlaMAwwCgYDVR0VBAMKAQEwIwIEEAADIxcNMjAw\n" +
+                "MjE3MDczNDAwWjAMMAoGA1UdFQQDCgEJMCMCBBAAAy4XDTIwMDIxODA1MTYyOVow\n" +
+                "DDAKBgNVHRUEAwoBBDAjAgQQAAMzFw0yMDAyMjUwNDQ3MDBaMAwwCgYDVR0VBAMK\n" +
+                "AQkwIwIEEAADNBcNMjAwMjI1MDQ0NzAwWjAMMAoGA1UdFQQDCgEJMCMCBBAAAzcX\n" +
+                "DTIwMDIyNTA4NTYzOVowDDAKBgNVHRUEAwoBBDAjAgQQAAM8Fw0yMDAyMjYwNTU1\n" +
+                "MDRaMAwwCgYDVR0VBAMKAQSgZjBkMAsGA1UdFAQEAgIcGTBVBgNVHSMETjBMgBT0\n" +
+                "CsM3uOtpgoV/+7nZgADDov4HY6EupCwwKjELMAkGA1UEBhMCQ04xDDAKBgNVBAoM\n" +
+                "A1NNMjENMAsGA1UEAwwEcm9vdIIEEAADDDAKBggqgRzPVQGDdQNIADBFAiBBIef8\n" +
+                "jkxpewMQJWoIP3g0IJ2trUoOGaGtkZBEXqThcQIhAOBfPvp61RQ0ZM9b9xC41Z25\n" +
+                "86gkuBixomhumMlOqFRE\n" +
+                "-----END X509 CRL-----\n";
+        X509CRL crl = CrlUtil.getX509CRLByBase64(srt);
+        List list  = CrlUtil.getRevokeCertSnList(crl);
+        for(Object o:list){
+            System.out.println(o.toString());
+        }
+
     }
 }
