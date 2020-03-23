@@ -32,7 +32,7 @@ public class SignatureUtilTest {
         sm2PublicKey = sm2KeyPair.getPublic();
         sm2PrivateKey = sm2KeyPair.getPrivate();
 
-        rsaKeyPair = KeyUtil.createRSAKeyPair();
+        rsaKeyPair = KeyUtil.createRSAKeyPair(1024);
         rsaPrivateKey = rsaKeyPair.getPrivate();
         rsaPublicKey = rsaKeyPair.getPublic();
 

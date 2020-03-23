@@ -49,14 +49,26 @@ public class SignatureUtil extends AbstractProvider {
      * @return
      */
     public static boolean verify(String signatureAlgorithmName, PublicKey key, String source, String sign) throws SignatureException {
+           return verify(signatureAlgorithmName,key,source.getBytes(),sign.getBytes());
+    }
+    /**
+     * 验签
+     *
+     * @param signatureAlgorithmName 签名算法名字
+     * @param key                    公钥
+     * @param source                 签名原文
+     * @param sign                   签名值
+     * @return
+     */
+    public static boolean verify(String signatureAlgorithmName, PublicKey key, byte[] source, byte[] sign) throws SignatureException {
         if (!SignatureAlgorithmEnum.contain(signatureAlgorithmName)) {
             throw new SignatureException("不支持的签名算法");
         }
         try {
             Signature signature = Signature.getInstance(signatureAlgorithmName);
             signature.initVerify(key);
-            signature.update(source.getBytes());
-            return signature.verify(Base64.decode(sign.getBytes()));
+            signature.update(source);
+            return signature.verify(Base64.decode(sign));
         } catch (Exception e) {
             throw new SignatureException("验签失败", e);
         }

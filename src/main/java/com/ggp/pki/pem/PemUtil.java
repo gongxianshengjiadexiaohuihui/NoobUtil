@@ -1,11 +1,10 @@
 package com.ggp.pki.pem;
 
 import com.ggp.common.base.AbstractProvider;
+import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.PEMWriter;
 
-import java.io.CharArrayWriter;
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.*;
 
 /**
  * @author: ggp
@@ -39,5 +38,21 @@ public class PemUtil extends AbstractProvider {
             e.printStackTrace();
             throw new RuntimeException("写入文件失败",e);
         }
+    }
+
+    /**
+     * 解析PEM文件
+     * @param path
+     * @return
+     */
+    public static Object readPEM(String path) throws Exception{
+        File file = new File(path);
+        if (!file.exists()) {
+            throw new FileNotFoundException("文件不存在");
+        }
+        PEMParser parser = new PEMParser(new FileReader(file));
+        Object obj = parser.readObject();
+        parser.close();
+        return obj;
     }
 }

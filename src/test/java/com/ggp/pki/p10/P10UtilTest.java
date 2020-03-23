@@ -19,7 +19,7 @@ import java.security.KeyPair;
 public class P10UtilTest {
 
     @Test
-    public void createP10() throws Exception {
+    public void createP10_nist() throws Exception {
         KeyPair keyPair = KeyUtil.createECDSAKeyPair();
         String dn = "CN=TEST,O=NIST,C=CN";
         X500Name subject = new X500Name(dn);
@@ -27,18 +27,33 @@ public class P10UtilTest {
         PKCS10CertificationRequest p10 = P10Util.createP10(subject, SignatureAlgorithmEnum.SHA256_WITH_ECDSA.name, keyPair.getPublic(), keyPair.getPrivate());
         PemUtil.writeObjectToFile(p10, Constants.ROOT_PATH + "test.p10");
     }
-
+    @Test
+    public void createP10_sm2() throws Exception {
+        KeyPair keyPair = KeyUtil.createSm2KeyPair();
+        String dn = "CN=TEST,O=SM2,C=CN";
+        X500Name subject = new X500Name(dn);
+        PemUtil.writeObjectToFile(keyPair.getPublic(), Constants.ROOT_PATH + "publicKey.dat");
+        PKCS10CertificationRequest p10 = P10Util.createP10(subject, SignatureAlgorithmEnum.SM3_WITH_SM2.name, keyPair.getPublic(), keyPair.getPrivate());
+        PemUtil.writeObjectToFile(p10, Constants.ROOT_PATH + "test.p10");
+    }
+    @Test
+    public void createP10_rsa() throws Exception {
+        KeyPair keyPair = KeyUtil.createRSAKeyPair(1024);
+        String dn = "CN=TEST,O=RSA,C=CN";
+        X500Name subject = new X500Name(dn);
+        PemUtil.writeObjectToFile(keyPair.getPublic(), Constants.ROOT_PATH + "publicKey.dat");
+        PKCS10CertificationRequest p10 = P10Util.createP10(subject, SignatureAlgorithmEnum.SHA256_WITH_RSA.name, keyPair.getPublic(), keyPair.getPrivate());
+        PemUtil.writeObjectToFile(p10, Constants.ROOT_PATH + "test.p10");
+    }
     @Test
     public void getPublicFromP10() throws Exception{
-        String p10 ="-----BEGIN CERTIFICATE REQUEST-----\n" +
-                "MIHvMIGXAgEAMDUxCzAJBgNVBAYTAkNOMQwwCgYDVQQKDANTTTIxGDAWBgNVBAMM\n" +
-                "D+WuoeiuoeeuoeeQhuWRmDBZMBMGByqGSM49AgEGCCqBHM9VAYItA0IABNautK+a\n" +
-                "zO0AqFyeCgpFxh3JckUvyUF8WT+n5QP+U+CfJBHwo1hrDsad57OYxN82vJC9IKFA\n" +
-                "bGJaKEuLE+wamOmgADAKBggqgRzPVQGDdQNHADBEAiAJgoD7EwnK8F9HPUpop+k2\n" +
-                "NBMb6IC/WsIC7i9zJwKkmgIgd69TFm2KoSfWdkh7L2t0dYUzLxbhF2nkE4RLWZJ3\n" +
-                "VRM=\n" +
-                "-----END CERTIFICATE REQUEST-----";
-        System.out.println(P10Util.getPublicKeyFromP10(p10));
+        String p10 ="MIIBszCCARwCAQAwgYIxJTAjBgNVBAMMHOadjumAjemBpSA0NTIxMTIxOTk1MTAyMTQyMjUxCzAJBgNVBAsMAjAwMQswCQYDVQQLDAIwMDELMAkGA1UECgwCMDAxCzAJBgNVBAcMAjAwMQswCQYDVQQHDAIwMDELMAkGA1UECAwCNDExCzAJBgNVBAYTAkNOMIGRMAsGCSqGSIb3DQEBAQOBgQDLS99HnQHpt2f6P1AcbUAG/vJT/EopqcWUAQb7JTHTXCKiYCgBKlvlhnIeHOLUYOHY8sW6epS0EYPxo8cQSvzaOuYjjNVY+B2kZx6UzHM930FCrKgekm+vVluqyh5TU3SFTQJwObHxqhdUmHLNBEzdP6Y7xzJjXzkWDBVOTCCstTANBgkqhkiG9w0BAQUFAAOBgQBSbiSEk7W3a+O64HIiSAMkgTY5Zq637U2eTDrSE7gA7Pb3fxwEQ0we1HKr3jMrZGS6rfl0EjSbDi4pG57BuAEcTs6e09CXRoJmseeWlFSILodjBz8qbKg9NjhDijENptQA/MtEBOXOjDvALAGONHkhAzBHepxVV1Zq4kmFr9hssw==";
+        P10Util.getPublicKeyFromP10(p10);
 
+    }
+    @Test
+    public void should_test(){
+        System.out.println(Math.cbrt(27));
+        System.out.println(Math.cbrt(-1));
     }
 }
