@@ -51,9 +51,5 @@ public class P10UtilTest {
         P10Util.getPublicKeyFromP10(p10);
 
     }
-    @Test
-    public void should_test(){
-        System.out.println(Math.cbrt(27));
-        System.out.println(Math.cbrt(-1));
-    }
+
 }

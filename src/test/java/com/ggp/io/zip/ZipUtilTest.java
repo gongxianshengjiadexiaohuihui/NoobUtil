@@ -10,11 +10,11 @@ import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 import org.bouncycastle.util.encoders.Base64;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.security.KeyPair;
 import java.util.HashMap;
 import java.util.Map;
-import java.io.File;
 
 
 /**
