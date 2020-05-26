@@ -1,9 +1,17 @@
 package com.ggp.pki.crl;
 
+import com.ggp.common.base.Constants;
+import com.ggp.common.enums.pki.SignatureAlgorithmEnum;
+import com.ggp.pki.key.KeyUtil;
+import com.ggp.pki.pem.PemUtil;
+import org.bouncycastle.asn1.x500.X500Name;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.math.BigInteger;
+import java.security.KeyPair;
 import java.security.cert.X509CRL;
+import java.util.Date;
 import java.util.List;
 
 
@@ -236,5 +244,13 @@ public class CRLUtilTest {
         X509CRL crl = CrlUtil.getX509CRLByBase64(base64Str);
         List list  = CrlUtil.getRevokeCertSnList(crl);
         Assert.assertTrue(list.contains("10000017"));
+    }
+    @Test
+    public void test_issue_crl() throws Exception{
+        X500Name issuer = new X500Name("CN=TEST,O=GGP,C=CN");
+        KeyPair keyPair = KeyUtil.createSm2KeyPair();
+        String alg = SignatureAlgorithmEnum.SM3_WITH_SM2.name;
+        X509CRL crl = CrlUtil.generateX509CRL(issuer,keyPair.getPrivate(),alg, BigInteger.valueOf(13),new Date(),new Date(),null,null);
+        PemUtil.writeObjectToFile(crl, Constants.ROOT_PATH+"crl2.crl");
     }
 }

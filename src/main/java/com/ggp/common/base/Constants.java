@@ -17,5 +17,5 @@ public class Constants {
     /**
      * 全局根路径
      */
-    public static final String ROOT_PATH = "/NoobUtil/";
+    public static final String ROOT_PATH = "../NoobUtil/";
 }

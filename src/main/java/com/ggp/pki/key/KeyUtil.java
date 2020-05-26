@@ -56,11 +56,11 @@ public class KeyUtil extends AbstractProvider {
      *
      * @return
      */
-    public static KeyPair createRSAKeyPair() {
+    public static KeyPair createRSAKeyPair(int size) {
         SecureRandom random = new SecureRandom((String.valueOf(System.nanoTime())).getBytes());
         try {
             KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA", "BC");
-            keyPairGenerator.initialize(2048, random);
+            keyPairGenerator.initialize(size, random);
             return keyPairGenerator.generateKeyPair();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
