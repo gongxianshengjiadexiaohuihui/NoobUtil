@@ -4,19 +4,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.ggp.noob.Util</groupId>
-    <artifactId>NoobUtil</artifactId>
+    <groupId>com.ggp.noob</groupId>
+    <artifactId>noob-util</artifactId>
     <version>1.0-SNAPSHOT</version>
        <dependencies>
            <dependency>
                <groupId>org.bouncycastle</groupId>
                <artifactId>bcprov-jdk15on</artifactId>
                <version>1.60</version>
+               <scope>provided</scope>
            </dependency>
            <dependency>
                <groupId>org.bouncycastle</groupId>
                <artifactId>bcpkix-jdk15on</artifactId>
                <version>1.60</version>
+               <scope>provided</scope>
            </dependency>
            <dependency>
                <groupId>junit</groupId>
@@ -32,16 +34,9 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                     <showWarnings>true</showWarnings>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <skipTests>true</skipTests>
                 </configuration>
             </plugin>
         </plugins>

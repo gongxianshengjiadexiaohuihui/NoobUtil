@@ -23,6 +23,10 @@ public class SignatureUtilTest {
     public static PrivateKey rsaPrivateKey;
     public static PublicKey rsaPublicKey;
 
+    public static KeyPair dsaKeyPair;
+    public static PrivateKey dsaPrivateKey;
+    public static PublicKey dsaPublicKey;
+
     static {
         sm2KeyPair = KeyUtil.createSm2KeyPair();
         sm2PublicKey = sm2KeyPair.getPublic();
@@ -31,6 +35,11 @@ public class SignatureUtilTest {
         rsaKeyPair = KeyUtil.createRSAKeyPair(1024);
         rsaPrivateKey = rsaKeyPair.getPrivate();
         rsaPublicKey = rsaKeyPair.getPublic();
+
+        dsaKeyPair = KeyUtil.createECDSAKeyPair();
+        dsaPrivateKey = dsaKeyPair.getPrivate();
+        dsaPublicKey = dsaKeyPair.getPublic();
+
     }
 
     /**
@@ -131,6 +140,41 @@ public class SignatureUtilTest {
             String source = "test";
             String sign = SignatureUtil.signatureBySHA256WithRSA(rsaPrivateKey, source);
             flag = SignatureUtil.verifyBySHA256WithRSA(rsaPublicKey, source, sign);
+        } catch (SignatureException e) {
+            flag = false;
+            e.printStackTrace();
+        }
+        Assert.assertTrue(flag);
+    }
+
+    /**
+     * 签名 SHA256WithECDSA
+     */
+    @Test
+    public void should_be_success_when_signature_by_SHA256WithECDSA() {
+      boolean flag = true;
+        try {
+            String source = "test";
+            String result = SignatureUtil.sigatureBySHA256WithECDSA(dsaPrivateKey,source);
+            System.out.println("私钥："+dsaPrivateKey);
+            System.out.println("签名结果："+result);
+        } catch (SignatureException e) {
+            flag = false;
+            e.printStackTrace();
+        }
+        Assert.assertTrue(flag);
+    }
+
+    /**
+     * 验签 SHA256WithECDSA
+     */
+    @Test
+    public void should_be_success_when_verify_by_SHA256WithECDSA() {
+        boolean flag;
+        try {
+            String source="test";
+            String sign = SignatureUtil.sigatureBySHA256WithECDSA(dsaPrivateKey,source);
+            flag = SignatureUtil.verifyBySHA256WithECDSA(dsaPublicKey,source,sign);
         } catch (SignatureException e) {
             flag = false;
             e.printStackTrace();

@@ -1,17 +1,10 @@
-package com.ggp.noob.pki.crl;
+package com.ggp.pki.crl;
 
-import com.ggp.noob.common.base.Constants;
-import com.ggp.noob.common.enums.pki.SignatureAlgorithmEnum;
-import com.ggp.noob.pki.key.KeyUtil;
-import com.ggp.noob.pki.pem.PemUtil;
-import org.bouncycastle.asn1.x500.X500Name;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.math.BigInteger;
-import java.security.KeyPair;
 import java.security.cert.X509CRL;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -246,11 +239,30 @@ public class CRLUtilTest {
         Assert.assertTrue(list.contains("10000017"));
     }
     @Test
-    public void test_issue_crl() throws Exception{
-        X500Name issuer = new X500Name("CN=TEST,O=GGP,C=CN");
-        KeyPair keyPair = KeyUtil.createSm2KeyPair();
-        String alg = SignatureAlgorithmEnum.SM3_WITH_SM2.name;
-        X509CRL crl = CrlUtil.generateX509CRL(issuer,keyPair.getPrivate(),alg, BigInteger.valueOf(13),new Date(),new Date(),null,null);
-        PemUtil.writeObjectToFile(crl, Constants.ROOT_PATH+"crl2.crl");
+    public void should_test() throws Exception {
+        String srt= "-----BEGIN X509 CRL-----\n" +
+                "MIIC2zCCAoECAQEwCgYIKoEcz1UBg3UwKjELMAkGA1UEBhMCQ04xDDAKBgNVBAoM\n" +
+                "A1NNMjENMAsGA1UEAwwEcm9vdBcNMjAwMjI3MTU1MjMwWhcNMjAwMjI3MTU1NDMw\n" +
+                "WjCCAbwwIwIEEAADGxcNMjAwMjE3MDcwNzAwWjAMMAoGA1UdFQQDCgEJMCMCBBAA\n" +
+                "AxwXDTIwMDIxNzA3MDcwMFowDDAKBgNVHRUEAwoBCTAjAgQQAAMfFw0yMDAyMTcw\n" +
+                "NzE3MDBaMAwwCgYDVR0VBAMKAQkwIwIEEAADIBcNMjAwMjE3MDcxNzAwWjAMMAoG\n" +
+                "A1UdFQQDCgEJMCMCBBAAAyEXDTIwMDIxNzA3MzI1OVowDDAKBgNVHRUEAwoBATAj\n" +
+                "AgQQAAMiFw0yMDAyMTcwNzMyNTlaMAwwCgYDVR0VBAMKAQEwIwIEEAADIxcNMjAw\n" +
+                "MjE3MDczNDAwWjAMMAoGA1UdFQQDCgEJMCMCBBAAAy4XDTIwMDIxODA1MTYyOVow\n" +
+                "DDAKBgNVHRUEAwoBBDAjAgQQAAMzFw0yMDAyMjUwNDQ3MDBaMAwwCgYDVR0VBAMK\n" +
+                "AQkwIwIEEAADNBcNMjAwMjI1MDQ0NzAwWjAMMAoGA1UdFQQDCgEJMCMCBBAAAzcX\n" +
+                "DTIwMDIyNTA4NTYzOVowDDAKBgNVHRUEAwoBBDAjAgQQAAM8Fw0yMDAyMjYwNTU1\n" +
+                "MDRaMAwwCgYDVR0VBAMKAQSgZjBkMAsGA1UdFAQEAgIcGTBVBgNVHSMETjBMgBT0\n" +
+                "CsM3uOtpgoV/+7nZgADDov4HY6EupCwwKjELMAkGA1UEBhMCQ04xDDAKBgNVBAoM\n" +
+                "A1NNMjENMAsGA1UEAwwEcm9vdIIEEAADDDAKBggqgRzPVQGDdQNIADBFAiBBIef8\n" +
+                "jkxpewMQJWoIP3g0IJ2trUoOGaGtkZBEXqThcQIhAOBfPvp61RQ0ZM9b9xC41Z25\n" +
+                "86gkuBixomhumMlOqFRE\n" +
+                "-----END X509 CRL-----\n";
+        X509CRL crl = CrlUtil.getX509CRLByBase64(srt);
+        List list  = CrlUtil.getRevokeCertSnList(crl);
+        for(Object o:list){
+            System.out.println(o.toString());
+        }
+
     }
 }

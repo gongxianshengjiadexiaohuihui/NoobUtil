@@ -25,7 +25,7 @@ public enum SignatureAlgorithmEnum {
      */
     public static boolean contain(String name){
         for(SignatureAlgorithmEnum signatureAlgorithmEnum:SignatureAlgorithmEnum.values()){
-            if(signatureAlgorithmEnum.name.equals(name)){
+            if(signatureAlgorithmEnum.name.equalsIgnoreCase(name)){
                 return true;
             }
         }
