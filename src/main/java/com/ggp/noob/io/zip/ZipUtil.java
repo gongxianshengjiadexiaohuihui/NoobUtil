@@ -1,4 +1,4 @@
-package com.ggp.io.zip;
+package com.ggp.noob.io.zip;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Map;

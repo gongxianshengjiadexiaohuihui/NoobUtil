@@ -1,7 +1,9 @@
 package com.ggp.noob.pki.key;
 
 
-import com.ggp.common.base.AbstractProvider;
+import com.ggp.noob.common.base.AbstractProvider;
+import com.ggp.noob.common.base.Constants;
+import com.ggp.noob.pki.pem.PemUtil;
 import org.bouncycastle.asn1.nist.NISTNamedCurves;
 import org.bouncycastle.asn1.sec.SECObjectIdentifiers;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
@@ -11,7 +13,6 @@ import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 import java.security.*;
 import java.security.spec.ECGenParameterSpec;
 
-import static com.ggp.pki.pem.PemUtil.readPEM;
 
 /**
  * @author: ggp
@@ -85,7 +86,7 @@ public class KeyUtil extends AbstractProvider {
      * @return
      */
     public static PublicKey readPublicKeyFromFile(String path) throws Exception {
-        Object obj = readPEM(path);
+        Object obj = PemUtil.readPEM(path);
         SubjectPublicKeyInfo info = SubjectPublicKeyInfo.getInstance(obj);
         JcaPEMKeyConverter converter = new JcaPEMKeyConverter().setProvider(Constants.provider);
         return converter.getPublicKey(info);
@@ -110,7 +111,7 @@ public class KeyUtil extends AbstractProvider {
      * @return
      */
     public static KeyPair readKeyPairFromFile(String path) throws Exception {
-        Object obj = readPEM(path);
+        Object obj = PemUtil.readPEM(path);
         return new JcaPEMKeyConverter().setProvider(Constants.provider).getKeyPair((PEMKeyPair) obj);
     }
 }

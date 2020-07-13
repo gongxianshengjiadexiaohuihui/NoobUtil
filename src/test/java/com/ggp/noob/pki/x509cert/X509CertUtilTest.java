@@ -1,7 +1,7 @@
-package com.ggp.pki.x509cert;
+package com.ggp.noob.pki.x509cert;
 
-import com.ggp.pki.key.KeyUtil;
-import com.ggp.pki.signature.SignatureUtil;
+import com.ggp.noob.pki.key.KeyUtil;
+import com.ggp.noob.pki.signature.SignatureUtil;
 import org.junit.Test;
 
 import java.security.PrivateKey;

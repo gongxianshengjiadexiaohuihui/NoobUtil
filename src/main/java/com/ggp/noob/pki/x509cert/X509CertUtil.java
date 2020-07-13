@@ -1,7 +1,9 @@
-package com.ggp.pki.x509cert;
+package com.ggp.noob.pki.x509cert;
 
-import com.ggp.common.base.AbstractProvider;
-import com.ggp.common.base.Constants;
+
+import com.ggp.noob.common.base.AbstractProvider;
+import com.ggp.noob.common.base.Constants;
+import com.ggp.noob.pki.pem.PemUtil;
 import org.bouncycastle.asn1.x509.Certificate;
 import org.bouncycastle.cert.X509CertificateHolder;
 import org.bouncycastle.jce.provider.X509CertificateObject;
@@ -11,7 +13,6 @@ import java.io.*;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 
-import static com.ggp.pki.pem.PemUtil.readPEM;
 
 /**
  * @author: ggp
@@ -39,7 +40,7 @@ public class X509CertUtil extends AbstractProvider {
         return (X509Certificate) factory.generateCertificate(new ByteArrayInputStream(Base64.decode(base64Str)));
     }
     public static X509Certificate getCertFromFile(String path) throws Exception{
-        X509CertificateHolder holder = (X509CertificateHolder)readPEM(path);
+        X509CertificateHolder holder = (X509CertificateHolder) PemUtil.readPEM(path);
         return new X509CertificateObject(Certificate.getInstance(holder.getEncoded()));
     }
 }

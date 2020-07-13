@@ -1,7 +1,11 @@
 package com.ggp.noob.pki.pem;
 
 import com.ggp.noob.common.base.AbstractProvider;
+import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.PEMWriter;
+import org.bouncycastle.util.io.pem.PemReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 
@@ -17,6 +21,7 @@ import java.io.*;
  * PublicKey
  */
 public class PemUtil extends AbstractProvider {
+  public static   Logger logger  = LoggerFactory.getLogger(PemUtil.class);
     /**
      * 将对象写入文件
      * @param object  见pemUtil-@Description
@@ -37,5 +42,21 @@ public class PemUtil extends AbstractProvider {
             e.printStackTrace();
             throw new RuntimeException("写入文件失败",e);
         }
+    }
+
+    /**
+     * 解析PEM文件
+     * @param path
+     * @return
+     */
+    public static Object readPEM(String path) throws Exception{
+        File file = new File(path);
+        if (!file.exists()) {
+            throw new FileNotFoundException("文件不存在");
+        }
+        PEMParser parser = new PEMParser(new FileReader(file));
+        Object obj = parser.readObject();
+        parser.close();
+        return obj;
     }
 }

@@ -23,27 +23,27 @@ public class P10UtilTest {
         KeyPair keyPair = KeyUtil.createECDSAKeyPair();
         String dn = "CN=TEST,O=NIST,C=CN";
         X500Name subject = new X500Name(dn);
-        PemUtil.writeObjectToFile(keyPair.getPublic(), Constants.ROOT_PATH + "publicKey.dat");
+        PemUtil.writeObjectToFile(keyPair.getPublic(), Constants.ROOT_PATH + "nist_publicKey.dat");
         PKCS10CertificationRequest p10 = P10Util.createP10(subject, SignatureAlgorithmEnum.SHA256_WITH_ECDSA.name, keyPair.getPublic(), keyPair.getPrivate());
-        PemUtil.writeObjectToFile(p10, Constants.ROOT_PATH + "test.p10");
+        PemUtil.writeObjectToFile(p10, Constants.ROOT_PATH + "nist.p10");
     }
     @Test
     public void createP10_sm2() throws Exception {
         KeyPair keyPair = KeyUtil.createSm2KeyPair();
         String dn = "CN=TEST,O=SM2,C=CN";
         X500Name subject = new X500Name(dn);
-        PemUtil.writeObjectToFile(keyPair.getPublic(), Constants.ROOT_PATH + "publicKey.dat");
+        PemUtil.writeObjectToFile(keyPair.getPublic(), Constants.ROOT_PATH + "sm2_publicKey.dat");
         PKCS10CertificationRequest p10 = P10Util.createP10(subject, SignatureAlgorithmEnum.SM3_WITH_SM2.name, keyPair.getPublic(), keyPair.getPrivate());
-        PemUtil.writeObjectToFile(p10, Constants.ROOT_PATH + "test.p10");
+        PemUtil.writeObjectToFile(p10, Constants.ROOT_PATH + "sm2.p10");
     }
     @Test
     public void createP10_rsa() throws Exception {
         KeyPair keyPair = KeyUtil.createRSAKeyPair(1024);
         String dn = "CN=TEST,O=RSA,C=CN";
         X500Name subject = new X500Name(dn);
-        PemUtil.writeObjectToFile(keyPair.getPublic(), Constants.ROOT_PATH + "publicKey.dat");
+        PemUtil.writeObjectToFile(keyPair.getPublic(), Constants.ROOT_PATH + "rsa_publicKey.dat");
         PKCS10CertificationRequest p10 = P10Util.createP10(subject, SignatureAlgorithmEnum.SHA256_WITH_RSA.name, keyPair.getPublic(), keyPair.getPrivate());
-        PemUtil.writeObjectToFile(p10, Constants.ROOT_PATH + "test.p10");
+        PemUtil.writeObjectToFile(p10, Constants.ROOT_PATH + "rsa.p10");
     }
     @Test
     public void getPublicFromP10() throws Exception{
