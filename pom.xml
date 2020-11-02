@@ -6,19 +6,21 @@
 
     <groupId>com.ggp.noob</groupId>
     <artifactId>noob-util</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
-       <dependencies>
+    <modules>
+        <module>spring-util</module>
+    </modules>
+    <dependencies>
            <dependency>
                <groupId>org.bouncycastle</groupId>
                <artifactId>bcprov-jdk15on</artifactId>
                <version>1.60</version>
-               <scope>provided</scope>
            </dependency>
            <dependency>
                <groupId>org.bouncycastle</groupId>
                <artifactId>bcpkix-jdk15on</artifactId>
                <version>1.60</version>
-               <scope>provided</scope>
            </dependency>
            <dependency>
                <groupId>junit</groupId>

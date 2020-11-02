@@ -2,12 +2,14 @@ package com.ggp.noob.pki.signature;
 
 import com.ggp.noob.common.Exception.SignatureException;
 import com.ggp.noob.pki.key.KeyUtil;
+import com.ggp.noob.pki.x509cert.X509CertUtil;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.cert.X509Certificate;
 
 /**
  * @author: ggp
@@ -180,5 +182,24 @@ public class SignatureUtilTest {
             e.printStackTrace();
         }
         Assert.assertTrue(flag);
+    }
+    @Test
+    public void test_verify() throws Exception{
+        String str="-----BEGIN CERTIFICATE-----\n" +
+                "MIIBxTCCAWygAwIBAgIEEAAAnjAKBggqgRzPVQGDdTArMQswCQYDVQQGEwJDTjEN\n" +
+                "MAsGA1UECgwEWERKQTENMAsGA1UEAwwEUk9PVDAeFw0yMDA5MjgwMzU5NThaFw0y\n" +
+                "MTA5MjgwMzU5NThaMB4xCzAJBgNVBAYTAkNOMQ8wDQYDVQQDDAZhZG1pbk8wWTAT\n" +
+                "BgcqhkjOPQIBBggqgRzPVQGCLQNCAAT021GFclEOt8yWkAwbxEaZUhcxCcyemUfu\n" +
+                "wLeTV6MTkfbu1mNu4DZVOktpchKOL4Sj5yQfaps5ziPUOmH+MIGUo4GKMIGHMFYG\n" +
+                "A1UdIwRPME2AFBf0KN1Fy05dpA7KNz+28TovQ85ooS+kLTArMQswCQYDVQQGEwJD\n" +
+                "TjENMAsGA1UECgwEWERKQTENMAsGA1UEAwwEUk9PVIIEEAAAAzAdBgNVHQ4EFgQU\n" +
+                "fWVerVDVOv9lOQW6nB44z1c4rKMwDgYDVR0PAQH/BAQDAgP4MAoGCCqBHM9VAYN1\n" +
+                "A0cAMEQCICcTLxEfsgbnsX6DM+rBdAZCwCGcYPhVx+9rmYAnnWqCAiBC6zloog+b\n" +
+                "Ban0idGFS4XkQd1YGN9Qx6U8yBdhDY65+Q==\n" +
+                "-----END CERTIFICATE-----\n";
+        X509Certificate cert= X509CertUtil.getCertFromBase64Str(str);
+        String plainText = "fd8846714a899a52d84c4da539b5bf0b955ef861da003eca3f1103879bfae0d24687831844308724";
+        String sign="MIIC8QYKKoEcz1UGAQQCAqCCAuEwggLdAgEBMQYwBAYABQAwXwYJKoZIhvcNAQcBoFIEUGZkODg0NjcxNGE4OTlhNTJkODRjNGRhNTM5YjViZjBiOTU1ZWY4NjFkYTAwM2VjYTNmMTEwMzg3OWJmYWUwZDI0Njg3ODMxODQ0MzA4NzI0oIIByTCCAcUwggFsoAMCAQICBBAAAJ4wCgYIKoEcz1UBg3UwKzELMAkGA1UEBhMCQ04xDTALBgNVBAoMBFhESkExDTALBgNVBAMMBFJPT1QwHhcNMjAwOTI4MDM1OTU4WhcNMjEwOTI4MDM1OTU4WjAeMQswCQYDVQQGEwJDTjEPMA0GA1UEAwwGYWRtaW5PMFkwEwYHKoZIzj0CAQYIKoEcz1UBgi0DQgAE9NtRhXJRDrfMlpAMG8RGmVIXMQnMnplH7sC3k1ejE5H27tZjbuA2VTpLaXISji+Eo+ckH2qbOc4j1Dph/jCBlKOBijCBhzBWBgNVHSMETzBNgBQX9CjdRctOXaQOyjc/tvE6L0POaKEvpC0wKzELMAkGA1UEBhMCQ04xDTALBgNVBAoMBFhESkExDTALBgNVBAMMBFJPT1SCBBAAAAMwHQYDVR0OBBYEFH1lXq1Q1Tr/ZTkFupweOM9XOKyjMA4GA1UdDwEB/wQEAwID+DAKBggqgRzPVQGDdQNHADBEAiAnEy8RH7IG57F+gzPqwXQGQsAhnGD4Vcfva5mAJ51qggIgQus5aKIPmwWp9InRhUuF5EHdWBjfUMelPMgXYQ2OufkxgaEwgZ4CAQEwMzArMQswCQYDVQQGEwJDTjENMAsGA1UECgwEWERKQTENMAsGA1UEAwwEUk9PVAIEEAAAnjAMBggqgRzPVQGDEQUAMA0GCSqBHM9VAYItAQUABEcwRQIhAJgSWwIztQuNTZLr4iFqW2GftVztbS+uFDYne0SZm6bBAiBsJWeVW3F5Hu6Tiatk2rx+TlsFcXXMgmQk8smmy84IsA==";
+        System.out.println(SignatureUtil.verifyBySm3WithSm2(cert.getPublicKey(),plainText,sign));
     }
 }

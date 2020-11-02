@@ -37,7 +37,7 @@ public class X509CertUtilTest {
 
     @Test
     public void should_key_match_cert() throws Exception {
-        X509Certificate certFromBase64Str = X509CertUtil.getCertFromFile("C:\\Users\\admin\\Desktop\\CA第五迭代\\test\\root.cer");
+        X509Certificate certFromBase64Str =  X509CertUtil.getCertFromFile("C:\\Users\\admin\\Desktop\\CA第五迭代\\test\\root.cer");
         System.out.println(certFromBase64Str.getPublicKey());
         PrivateKey key = KeyUtil.readPrivateKeyFromFile("C:\\Users\\admin\\Desktop\\CA第五迭代\\test\\private.key");
         System.out.println(key);
