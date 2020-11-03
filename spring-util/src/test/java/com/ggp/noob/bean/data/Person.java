@@ -1,4 +1,4 @@
-package com.ggp.noob.bean;
+package com.ggp.noob.bean.data;
 
 /**
  * @Author:ggp

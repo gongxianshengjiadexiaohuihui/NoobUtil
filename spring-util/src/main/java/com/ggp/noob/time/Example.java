@@ -9,6 +9,10 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class Example {
+    public Example() {
+        System.out.println("test");
+    }
+
     @StatisticTime(value = "test")
     public void testTime(){
         int j =100000;
