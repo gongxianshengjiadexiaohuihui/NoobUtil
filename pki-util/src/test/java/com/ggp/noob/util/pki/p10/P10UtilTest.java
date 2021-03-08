@@ -8,9 +8,11 @@ import org.bouncycastle.asn1.ASN1Encodable;
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.pkcs.PKCS10CertificationRequest;
+import org.bouncycastle.util.encoders.Base64;
 import org.junit.Test;
 
 import java.security.KeyPair;
+import java.security.interfaces.ECPublicKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
@@ -30,7 +32,8 @@ public class P10UtilTest {
         X500Name subject = new X500Name(dn);
         PemUtil.writeObjectToFile(keyPair.getPublic(), Constants.ROOT_PATH + "nist_publicKey.dat");
         PKCS10CertificationRequest p10 = P10Util.createP10(subject, SignatureAlgorithmEnum.SHA256_WITH_ECDSA.name, keyPair.getPublic(), keyPair.getPrivate());
-        PemUtil.writeObjectToFile(p10, Constants.ROOT_PATH + "nist.p10");
+        System.out.println(Base64.toBase64String(p10.getEncoded()));
+        //PemUtil.writeObjectToFile(p10, Constants.ROOT_PATH + "nist.p10");
     }
     @Test
     public void createP10_sm2() throws Exception {
@@ -70,6 +73,12 @@ public class P10UtilTest {
 
         System.out.println(publicKey.getModulus().bitLength());
         System.out.println(publicKey.getAlgorithm());
+    }
+    @Test
+    public void test_getEC_publicFromP10()throws Exception{
+        String p10 = "MIHmMIGNAgEAMCsxDTALBgNVBAMMBFRFU1QxDTALBgNVBAoMBE5JU1QxCzAJBgNVBAYTAkNOMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEQGVhYivi2LFd/ZFUMQWKHjzf+oxG8QHo2crb+reTHJp/Rm2ilPE8EzFzPE8M1ceWN5cpE2NX/tJRqQ8BU/lMfaAAMAoGCCqGSM49BAMCA0gAMEUCIE/jQw97UBBGLp0A4OYWejIcGSG6ZU0mMi+ZxzXG2VrZAiEAoHkLDpSPA6+m8N/Tw71g7DWJ+rErsZPCnqkIRwy/eUI=";
+        ECPublicKey publicKey = (ECPublicKey)P10Util.getPublicKeyFromP10(p10);
+        System.out.println(publicKey.getW());
     }
     @Test
     public void test_wait() throws Exception{

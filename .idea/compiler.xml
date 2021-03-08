@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="common-util" />
+        <module name="pki-util" />
         <module name="verify-util" />
         <module name="io-util" />
+        <module name="common-util" />
         <module name="spring-util" />
-        <module name="pki-util" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="8" />
